@@ -46,6 +46,9 @@ class ReaderUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if(true){
+            throw new WADataXExcption(EnumWAErrorCode.CONFIG_FILE_ERROR,"文件读取异常，程序终止！");
+        }
         return null;
     }
 }

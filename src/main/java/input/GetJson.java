@@ -78,7 +78,7 @@ public class GetJson {
         }
     }
     public static void main(String[] args){
-        Logger logger = LogManager.getLogger("Main");
+        Logger logger1 = LogManager.getLogger("Main");
         GetJson main = new GetJson();
         main.dealProgress();
         String result = stringJson.toString();
@@ -92,7 +92,7 @@ public class GetJson {
             }
         }
         try {
-            logger.info(file.getName());
+            logger1.info(file.getName());
             writer = new FileWriter(file);
             writer.write(result);
             writer.flush();
