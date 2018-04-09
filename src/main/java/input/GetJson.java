@@ -13,8 +13,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * 获取日志文件中的输入测试用例
+ * 读取字符串中两个字符串之间的内容（日志文件中所有的）
+ */
 public class GetJson {
-    static Logger logger = LogManager.getLogger("GetJson");
+    Logger logger = LogManager.getLogger(GetJson.class);
     private static String CONFIG_PATH = System.getProperty("user.dir") + "/config/readConfig.json";
     private  Configuration configuration = Configuration.from(GetJson.getConfig());
     private  String startFlag = configuration.getString("begin");
@@ -74,7 +78,7 @@ public class GetJson {
         }
     }
     public static void main(String[] args){
-
+        Logger logger = LogManager.getLogger("Main");
         GetJson main = new GetJson();
         main.dealProgress();
         String result = stringJson.toString();
