@@ -9,9 +9,8 @@ import common.excption.WADataXExcption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+
 
 /**
  * 获取日志文件中的输入测试用例
@@ -52,6 +51,13 @@ public class GetJson {
 //        return jsonObjects;
 //    }
     private static JSONArray stringJson = new JSONArray();
+
+    /**
+     * 从日志文件中获取字符串中两个子字符串之间需要的数据
+     * @param startFlag 前一个子字符串
+     * @param endFlag 后一个子字符串
+     * @param content 日志内容的字符串
+     */
     private void getContent(String startFlag,String endFlag,String content){
         if(content.length() == 0){
             throw new WADataXExcption(EnumWAErrorCode.CONFIG_FILE_ERROR,"日志文件错误");
@@ -62,7 +68,15 @@ public class GetJson {
             int endLocation = str.indexOf(endFlag);
             if(endLocation>0){
                 String tmp = str.substring(0,endLocation);
-                stringJson.add((JSONObject) JSONObject.parse(tmp));
+
+                //解决乱码？
+                stringJson.add( JSONObject.parse(tmp));
+//                try {
+//                    logger.error(tmp.equals(new String(tmp.getBytes("iso-8859-1"),"iso-8859-1")));
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
+
             }
             String tmpS = content.substring(begLocation+startFlag.length()+endLocation);
             getContent(startFlag,endFlag,tmpS);
@@ -77,29 +91,32 @@ public class GetJson {
             logger.info(object);
         }
     }
-    public static void main(String[] args){
+    public static void main(String[] args) throws UnsupportedEncodingException {
         Logger logger1 = LogManager.getLogger("Main");
         GetJson main = new GetJson();
         main.dealProgress();
-        String result = stringJson.toString();
-        FileWriter writer;
-        File file = new File(System.getProperty("user.dir")+"/config/result.txt");
-        if(!file.exists()){
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        String result = null;
+        result = stringJson.toString();
+//        logger1.info(stringJson.toString().equals(new String(result.getBytes("utf-8"),"utf-8")));
+//        这是utf-8编码的字符串啊!!!
+
+        //乱码解决
+        FileOutputStream fileOutputStream = null;
+
         try {
-            logger1.info(file.getName());
-            writer = new FileWriter(file);
-            writer.write(result);
-            writer.flush();
-            writer.close();
+            String path = System.getProperty("user.dir")+"/config/result.txt";
+            fileOutputStream = new FileOutputStream(path);
+            OutputStreamWriter osw = new OutputStreamWriter(fileOutputStream, "UTF-8");
+
+            osw.write(result);
+            osw.close();
+            fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
 //        Configuration configuration = Configuration.from(GetJson.getConfig());
 //        String logContent = ReaderUtil.ReadLogFile(configuration.getString("logfile"));

@@ -1,0 +1,7 @@
+#ignore pom.xml
+*.xml
+!pom.xml
+*.puml
+*.iml
+*.class
+*/target/*

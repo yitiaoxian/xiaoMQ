@@ -9,7 +9,8 @@
         <fileSet>
             <directory>config/</directory>
             <includes>
-                <include>*.*</include>
+                <include>readConfig.json</include>
+                <include>ExtractionBiaomi.log</include>
             </includes>
             <outputDirectory>MQUtil/config/</outputDirectory>
         </fileSet>
