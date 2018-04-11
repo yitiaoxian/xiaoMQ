@@ -21,7 +21,7 @@ public class TestReadAndWrite {
             in.close();
 
             str=new String(buffer,"UTF-8");
-            System.out.println(str);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
