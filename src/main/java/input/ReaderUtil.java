@@ -8,7 +8,7 @@ import java.io.*;
 /**
  * 读取文件的工具类
  */
-class ReaderUtil {
+public class ReaderUtil {
     /**
      * jar的执行目录
      */

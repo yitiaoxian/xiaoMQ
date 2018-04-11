@@ -1,0 +1,36 @@
+{
+    "$ref": "#/definitions/Welcome",
+    "definitions": {
+        "Array": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Array"
+        },
+        "Welcome": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "age": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "array": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Array"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Welcome"
+        }
+    }
+}
